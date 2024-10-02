@@ -34,11 +34,8 @@ import static com.angelbroking.smartapi.utils.Constants.TOKEN_EXCEPTION_MESSAGE;
 public class SmartAPIResponseHandler {
 
 	public JSONObject handle(Response response, String body) throws IOException, SmartAPIException, JSONException {
-		log.info("***************************");
 		if (response.header("Content-Type").contains("json")) {
 			JSONObject jsonObject = new JSONObject(body);
-
-//			if (jsonObject.optString("data") == null || jsonObject.optString("data") == "") {
 			if (!jsonObject.has("status") || jsonObject.has("success")) {
 				if (jsonObject.has("errorcode")) {
 					throw dealWithException(jsonObject, jsonObject.getString("errorcode"));
@@ -47,7 +44,6 @@ public class SmartAPIResponseHandler {
 					throw dealWithException(jsonObject, jsonObject.getString("errorCode"));
 				}
 			}
-			//System.out.println(jsonObject);
 			return jsonObject;
 		} else {
 			throw new DataException("Unexpected content type received from server: " + response.header("Content-Type")

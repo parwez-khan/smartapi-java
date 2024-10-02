@@ -402,7 +402,6 @@ public class SmartConnect {
 		try {
 			String url = routes.get("api.order.book");
 			JSONObject response = smartAPIRequestHandler.getRequest(this.apiKey, url, accessToken);
-			log.info("Order history : {}",response);
 			return response;
 		} catch (Exception | SmartAPIException e) {
 			log.error("Exception#: {}" , e.getMessage());
